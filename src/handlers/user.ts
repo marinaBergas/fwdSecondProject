@@ -8,7 +8,7 @@ const store = new userStory();
 const create = async (_req: Request, res: Response) => {
   const userS = {
     username: _req.body.username,
-    password: _req.body.password_digest,
+    password_digest: _req.body.password_digest,
   };
   const user = await store.create(userS);
   let token = jwt.sign({ user }, process.env.TOKEN_SECRET as string);

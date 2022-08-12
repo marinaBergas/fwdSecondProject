@@ -4,7 +4,7 @@ const pepper = require("s-salt-pepper");
 export type User = {
   id?: number;
   username: string;
-  password: string;
+  password_digest: string;
 };
 export class userStory {
   async show(id: string): Promise<User> {
@@ -62,7 +62,7 @@ export class userStory {
       const sql =
         "INSERT INTO users (username, password_digest) VALUES($1, $2) RETURNING *";
       const saltRounds = bcrypt.genSaltSync(10);
-      const hash = bcrypt.hashSync(u.password + pepper, parseInt(saltRounds));
+      const hash = bcrypt.hashSync(u.password_digest + pepper, parseInt(saltRounds));
       const result = await conn.query(sql, [u.username, hash]);
 
       conn.release();
@@ -72,7 +72,7 @@ export class userStory {
       throw new Error(`Could not add new user ${u.username}`);
     }
   }
-  async index(): Promise<User> {
+  async index(): Promise<User[]> {
     try {
       const connect = await client.connect();
       const sql = "SELECT * FROM users";

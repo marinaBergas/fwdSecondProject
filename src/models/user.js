@@ -68,7 +68,7 @@ class userStory {
                 const conn = yield database_1.default.connect();
                 const sql = "INSERT INTO users (username, password_digest) VALUES($1, $2) RETURNING *";
                 const saltRounds = bcrypt.genSaltSync(10);
-                const hash = bcrypt.hashSync(u.password + pepper, parseInt(saltRounds));
+                const hash = bcrypt.hashSync(u.password_digest + pepper, parseInt(saltRounds));
                 const result = yield conn.query(sql, [u.username, hash]);
                 conn.release();
                 const user = result.rows[0];

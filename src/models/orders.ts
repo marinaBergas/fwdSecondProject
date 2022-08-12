@@ -54,7 +54,7 @@ export class orderStore {
       throw new Error(`Could not delete order ${id} `);
     }
   }
-  async index(): Promise<Order> {
+  async index(): Promise<Order[]> {
     try {
       const connect = await client.connect();
       const sql = "SELECT * FROM orders";

@@ -20,7 +20,7 @@ const store = new user_1.userStory();
 const create = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userS = {
         username: _req.body.username,
-        password: _req.body.password_digest,
+        password_digest: _req.body.password_digest,
     };
     const user = yield store.create(userS);
     let token = jsonwebtoken_1.default.sign({ user }, process.env.TOKEN_SECRET);
