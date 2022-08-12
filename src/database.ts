@@ -10,8 +10,8 @@ const {
   POSTGRES_TEST_DB,
   ENV,
   BCRYPT_PASSWORD,
-SALT_ROUNDS,
-TOKEN_SECRET
+  SALT_ROUNDS,
+  TOKEN_SECRET,
 } = process.env;
 console.log(ENV);
 let client: any;
@@ -19,9 +19,9 @@ if (ENV === "test") {
   client = new Pool({
     host: POSTGRES_HOST,
     user: POSTGRES_USER,
-    database:POSTGRES_TEST_DB,
+    database: POSTGRES_TEST_DB,
     password: POSTGRES_PASSWORD,
-      });
+  });
 }
 if (ENV === "dev") {
   client = new Pool({

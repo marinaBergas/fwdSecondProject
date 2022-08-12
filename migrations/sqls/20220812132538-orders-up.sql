@@ -3,5 +3,5 @@ CREATE TABLE orders (
     status VARCHAR(100),
     orderNum integer,
     user_id bigint REFERENCES users(id),
-    details VARCHAR(100),
+    details VARCHAR(100)
 );

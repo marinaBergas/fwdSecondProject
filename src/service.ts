@@ -1,7 +1,7 @@
 import  { Request, Response } from "express";
-// import books_route from "./handlers/book";
-// import users_route from "./handlers/user";
-
+import users_route from "./handlers/user";
+import  products_route from'./handlers/products';
+import order_route from "./handlers/orders";
 var express = require('express');
 var bodyParser = require('body-parser');
 
@@ -19,9 +19,9 @@ app.post("/", function (req:any, res: any) {
   res.send("Hello WORLD");
 });
 
-// books_route(app);
-// users_route(app);
-
+users_route(app);
+products_route(app);
+order_route(app)
 app.listen(port, function() {
   console.log(`starting app on : ${address}`);
 });

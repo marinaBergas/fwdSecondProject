@@ -18,10 +18,10 @@ export class productStore {
       throw new Error(`could not add new product${p.sku} `);
     }
   }
-  async show(id: number): Promise<Product> {
+  async show(id: string): Promise<Product> {
     try {
       const connect = await client.connect();
-      const sql = "SELECT * FROM products WHERE id=($(1)";
+      const sql = "SELECT * FROM products WHERE id=($1)";
       const result = await connect.query(sql, [id]);
 
       connect.release();
@@ -30,17 +30,37 @@ export class productStore {
       throw new Error(`Could not find product ${id} `);
     }
   }
-  async delete(id: number): Promise<Product> {
+  async update(params: {
+    id: string;
+    sku: string;
+    description: string;
+    price: number;
+  }): Promise<boolean> {
+    console.log('id',params.id,params.sku, params.description,params.price)
+
+    try {
+      const conn = await client.connect();
+      const sql =
+        "UPDATE products SET sku=($2), description=($3),price=($4) WHERE id=($1)";
+      const result = await conn.query(sql, [params.id, params.sku, params.description,params.price]);
+      conn.release();
+      return true;
+    } catch (error) {
+      throw new Error(`Could not update product`);
+    }
+  }
+  async delete(id: string): Promise<boolean> {
     try {
       const connect = await client.connect();
       const sql = "DELETE FROM products WHERE id=($1)";
       const result = await connect.query(sql, [id]);
       connect.release();
-      return result.rows[0];
+      return true;
     } catch (error) {
       throw new Error(`Could not delete product ${id} `);
     }
   }
+
   async index(): Promise<Product> {
     try {
       const connect = await client.connect();
