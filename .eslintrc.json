@@ -1,0 +1,63 @@
+{
+    "root": true,
+    "ignorePatterns": ["projects/**/*"],
+    "env": {
+
+      "es6": true
+    },
+    "overrides": [
+      {
+        "files": ["*.ts"],
+        "parserOptions": {
+          // "project": ["tsconfig.json", "e2e/tsconfig.json"],
+          "ecmaVersion": 2017,
+
+
+          "createDefaultProgram": true
+        },
+        
+        "ecmaFeatures": {
+          "modules": true,
+          "experimentalObjectRestSpread": true
+      },
+
+        // "extends": [
+        //   "plugin:@angular-eslint/ng-cli-compat",
+        //   "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        //   "plugin:@angular-eslint/template/process-inline-templates"
+        // ],
+        "rules": {
+          "prettier/prettier": "error"
+          // "@angular-eslint/component-class-suffix": [
+          //   "error",
+          //   {
+          //     "suffixes": ["Page", "Component"]
+          //   }
+          // ],
+          // "@angular-eslint/component-selector": [
+          //   "error",
+          //   {
+          //     "type": "element",
+          //     "prefix": "app",
+          //     "style": "kebab-case"
+          //   }
+          // ],
+          // "@angular-eslint/directive-selector": [
+          //   "error",
+          //   {
+          //     "type": "attribute",
+          //     "prefix": "app",
+          //     "style": "camelCase"
+          //   }
+          // ]
+        }
+      },
+      {
+        "files": ["*.html"],
+        "plugins": ["prettier"],
+        // "extends": ["plugin:@angular-eslint/template/recommended"],
+        "rules": {}
+      }
+    ]
+  }
+  
