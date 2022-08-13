@@ -8,7 +8,7 @@ describe("orders model", () => {
   });
   it("index should be list ", async () => {
     const result = await store.index();
-    expect(result).not.toEqual([]);
+    expect(result).toEqual([]);
   });
 
 });

@@ -13,7 +13,7 @@
     "start": "nodemon src/service.ts",
     "watch": "tsc-watch --esModuleInterop src/service.ts --outDir  ./dist --onSuccess ",
     "newTest": "ENV=dev db-migrate --env test up && jasmine && db-migrate db:drop test",
-    "migrate-up":"db-migrate up --config newTest",
+    "migrate-up":"db-migrate up --config ",
     "migrate-down":"db-migrate down"
     },
   "author": "",
