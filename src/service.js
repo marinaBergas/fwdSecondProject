@@ -10,7 +10,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 const address = "0.0.0.0:3001";
-const port = 3001;
+const port = process.env.PORT;
 app.use(bodyParser.urlencoded({
     extended: true
 }));

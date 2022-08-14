@@ -115,6 +115,9 @@ orderNum :number,
 user_id :6,
 details:string
 }
+hint need user token in headers as bearer auth to change
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozMiwidXNlcm5hbWUiOiJtYXJpbmEiLCJwYXNzd29yZF9kaWdlc3QiOiIkMmIkMTAkMHpack4yZGE0L1lxcTZyd2RxdDNVT0cwWXVEMUtqaVdtTVIzWmR6TGRhS2dMelN0clJoaUMiLCJlbWFpbCI6Im1hcmluYS5zYWJlckBnbWFpbC5jb20ifSwiaWF0IjoxNjYwNTAyNzA5fQ.F47UV0s9uNbdncSfxC3jhtyFpoYMOO-jwbit1LEjuF0
+
 3-create(POST/order)
 app.post("/order",verifyAuthToken, create);
 http://localhost:3001/order/1
@@ -125,6 +128,9 @@ orderNum :number,
 user_id :6,
 details:string
 }
+hint need user token in headers as bearer auth to change
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozMiwidXNlcm5hbWUiOiJtYXJpbmEiLCJwYXNzd29yZF9kaWdlc3QiOiIkMmIkMTAkMHpack4yZGE0L1lxcTZyd2RxdDNVT0cwWXVEMUtqaVdtTVIzWmR6TGRhS2dMelN0clJoaUMiLCJlbWFpbCI6Im1hcmluYS5zYWJlckBnbWFpbC5jb20ifSwiaWF0IjoxNjYwNTAyNzA5fQ.F47UV0s9uNbdncSfxC3jhtyFpoYMOO-jwbit1LEjuF0
+
 4-Delete(DELETE /order)
 app.delete("/order/:id",verifyAuthToken, deleteOrder);
 http://localhost:3001/order/1
@@ -136,6 +142,8 @@ quantity integer,
 order_id bigint REFERENCES orders(id),
 product_id bigint REFERENCES products(id)
 );
+hint need user token in headers as bearer auth to change
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozMiwidXNlcm5hbWUiOiJtYXJpbmEiLCJwYXNzd29yZF9kaWdlc3QiOiIkMmIkMTAkMHpack4yZGE0L1lxcTZyd2RxdDNVT0cwWXVEMUtqaVdtTVIzWmR6TGRhS2dMelN0clJoaUMiLCJlbWFpbCI6Im1hcmluYS5zYWJlckBnbWFpbC5jb20ifSwiaWF0IjoxNjYwNTAyNzA5fQ.F47UV0s9uNbdncSfxC3jhtyFpoYMOO-jwbit1LEjuF0
 
 1-create(POST/addProduct)
 app.post("/addProduct",verifyAuthToken, orderProduct);

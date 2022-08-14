@@ -25,6 +25,7 @@ export class productStore {
       const result = await connect.query(sql, [id]);
 
       connect.release();
+      console.log('result',result.rows);
       return result.rows[0];
     } catch (error) {
       throw new Error(`Could not find product ${id} `);

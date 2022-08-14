@@ -36,6 +36,7 @@ class productStore {
                 const sql = "SELECT * FROM products WHERE id=($1)";
                 const result = yield connect.query(sql, [id]);
                 connect.release();
+                console.log('result', result.rows);
                 return result.rows[0];
             }
             catch (error) {
