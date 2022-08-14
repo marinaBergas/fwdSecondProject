@@ -7,7 +7,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var app = express();
-const address: string = "0.0.0.0:3001";
+const address: string = `0.0.0.0:${process.env.PORT}`;
 const port = process.env.PORT;
 
 app.use(bodyParser.urlencoded({
@@ -26,3 +26,4 @@ app.listen(port, function() {
   console.log(`starting app on : ${address}`);
 });
 
+export default app;

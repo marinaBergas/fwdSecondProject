@@ -9,7 +9,7 @@ const orders_1 = __importDefault(require("./handlers/orders"));
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-const address = "0.0.0.0:3001";
+const address = `0.0.0.0:${process.env.PORT}`;
 const port = process.env.PORT;
 app.use(bodyParser.urlencoded({
     extended: true
@@ -24,3 +24,4 @@ app.post("/", function (req, res) {
 app.listen(port, function () {
     console.log(`starting app on : ${address}`);
 });
+exports.default = app;
