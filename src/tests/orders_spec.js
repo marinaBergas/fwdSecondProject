@@ -28,4 +28,19 @@ describe("orders model", () => {
     it("update should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
         expect(store.update).toBeDefined();
     }));
+    it("delete should return true ", () => __awaiter(void 0, void 0, void 0, function* () {
+        const result = yield store.delete("42");
+        expect(result).toBe(true);
+    }));
+    it("update should return true ", () => __awaiter(void 0, void 0, void 0, function* () {
+        const order = {
+            id: "1",
+            status: "accepts",
+            ordernum: 123,
+            user_id: 32,
+            details: "det"
+        };
+        const result = yield store.update(order);
+        expect(result).toBe(true);
+    }));
 });

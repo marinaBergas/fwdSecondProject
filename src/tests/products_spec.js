@@ -25,7 +25,34 @@ describe("products model", () => {
     it("delete should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
         expect(store.delete).toBeDefined();
     }));
+    it('fetch all products', function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            const product = {
+                id: 2,
+                sku: "this is aproduct #12",
+                description: "123456",
+                price: 25
+            };
+            yield store.create(product);
+            const userList = yield store.index();
+            expect(userList.length).toBeGreaterThan(0);
+        });
+    });
     it("update should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
         expect(store.update).toBeDefined();
+    }));
+    it("delete should return true ", () => __awaiter(void 0, void 0, void 0, function* () {
+        const result = yield store.delete("42");
+        expect(result).toBe(true);
+    }));
+    it("update should return true ", () => __awaiter(void 0, void 0, void 0, function* () {
+        const product = {
+            id: "2",
+            sku: "this is aproduct #12",
+            description: "123456",
+            price: 25
+        };
+        const result = yield store.update(product);
+        expect(result).toBe(true);
     }));
 });

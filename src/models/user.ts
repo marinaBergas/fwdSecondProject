@@ -35,11 +35,8 @@ export class userStory {
         params.password_digest + pepper,
         parseInt(saltRounds)
       );
-      console.log('result');
-
       const result = await conn.query(sql, [params.id, params.username, hash,params.email]);
       conn.release();
-      console.log('result',result);
 
       return true;
     } catch (error) {
@@ -49,8 +46,6 @@ export class userStory {
   async authenticate(
    u:User
   ): Promise<User | string> {
-    console.log("sql", u.email);
-
     try {
       const conn = await client.connect();
       const sql = 'SELECT * FROM users WHERE id=($1)';
@@ -58,8 +53,6 @@ export class userStory {
       conn.release();
       if (result.rows.length) {
         const user = result.rows[0];
-        console.log("password_digest", u.password_digest + pepper);
-
         if (
           bcrypt.compareSync(u.password_digest + pepper, user.password_digest)
         ) {
@@ -74,7 +67,6 @@ export class userStory {
     }
   }
   async create(u: User): Promise<User | null> {
-    console.log('user',u);
     try {
       const conn = await client.connect();
 
@@ -89,8 +81,6 @@ export class userStory {
 
       conn.release();
       const user = result.rows[0];
-      console.log(user);
-
       return user;
     } catch (error) {
       throw new Error(`Could not add new user ${u.username}`);

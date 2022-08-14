@@ -39,10 +39,8 @@ class userStory {
                 const conn = yield database_1.default.connect();
                 const sql = "UPDATE users SET username = ($2), password_digest=($3), email=($4) WHERE id =($1)";
                 const hash = bcrypt_1.default.hashSync(params.password_digest + pepper, parseInt(saltRounds));
-                console.log('result');
                 const result = yield conn.query(sql, [params.id, params.username, hash, params.email]);
                 conn.release();
-                console.log('result', result);
                 return true;
             }
             catch (error) {
@@ -52,7 +50,6 @@ class userStory {
     }
     authenticate(u) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("sql", u.email);
             try {
                 const conn = yield database_1.default.connect();
                 const sql = 'SELECT * FROM users WHERE id=($1)';
@@ -60,7 +57,6 @@ class userStory {
                 conn.release();
                 if (result.rows.length) {
                     const user = result.rows[0];
-                    console.log("password_digest", u.password_digest + pepper);
                     if (bcrypt_1.default.compareSync(u.password_digest + pepper, user.password_digest)) {
                         return user;
                     }
@@ -77,7 +73,6 @@ class userStory {
     }
     create(u) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('user', u);
             try {
                 const conn = yield database_1.default.connect();
                 const sql = "INSERT INTO users (username, password_digest,email) VALUES($1, $2,$3) RETURNING *";
@@ -85,7 +80,6 @@ class userStory {
                 const result = yield conn.query(sql, [u.username, hash, u.email]);
                 conn.release();
                 const user = result.rows[0];
-                console.log(user);
                 return user;
             }
             catch (error) {

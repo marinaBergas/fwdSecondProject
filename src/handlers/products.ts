@@ -69,9 +69,9 @@ const verifyAuthToken = (req: Request, res: Response, next: any) => {
 };
 const products_route = (app: express.Application) => {
   app.get("/product", index);
-  app.post("/product", create);
-  app.delete("/product/:id", deleteProduct);
+  app.post("/product",verifyAuthToken, create);
+  app.delete("/product/:id",verifyAuthToken, deleteProduct);
   app.get("/product/:id", show);
-  app.put("/product/:id", updateProduct);
+  app.put("/product/:id",verifyAuthToken, updateProduct);
 };
 export default products_route;

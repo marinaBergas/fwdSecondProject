@@ -59,7 +59,6 @@ const login = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
         email: _req.body.email,
     };
     try {
-        console.log('try');
         const userRes = yield store.authenticate(user);
         res.json(userRes);
     }
@@ -85,7 +84,6 @@ const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const token = authorizationHeader.split(" ")[1];
     const decoded = jsonwebtoken_1.default.verify(token, process.env.TOKEN_SECRET);
     const user_id = parseInt(req.params.id);
-    console.log("decoded", decoded.user.id, user_id);
     try {
         if (user_id !== decoded.user.id) {
             res.json("the user token is incorrect");

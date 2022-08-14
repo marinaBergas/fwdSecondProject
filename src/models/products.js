@@ -45,7 +45,6 @@ class productStore {
     }
     update(params) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log('id', params.id, params.sku, params.description, params.price);
             try {
                 const conn = yield database_1.default.connect();
                 const sql = "UPDATE products SET sku=($2), description=($3),price=($4) WHERE id=($1)";

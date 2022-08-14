@@ -47,7 +47,6 @@ const login = async (_req: Request, res: Response) => {
   }
 
   try {
-    console.log('try');
     const userRes = await store.authenticate(user);
     res.json(userRes);
   } catch (error) {
@@ -78,7 +77,6 @@ const show = async (req: Request, res: Response) => {
     process.env.TOKEN_SECRET as string
   ) as JwtPayload;
   const user_id = parseInt(req.params.id);
-  console.log("decoded", decoded.user.id, user_id);
   try {
     if (user_id !== decoded.user.id) {
       res.json("the user token is incorrect");

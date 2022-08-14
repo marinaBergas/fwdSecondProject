@@ -13,7 +13,6 @@ const {
   SALT_ROUNDS,
   TOKEN_SECRET,
 } = process.env;
-console.log(ENV);
 let client: any;
 if (ENV === "test") {
   client = new Pool({

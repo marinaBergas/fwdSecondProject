@@ -22,11 +22,34 @@ describe("user model", () => {
     it(" create should not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
         expect(store.create).toBeDefined();
     }));
+    it('fetch all users', function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = {
+                "username": "mar",
+                "password_digest": "123456",
+                "email": "marina.sber@gmail.com"
+            };
+            yield store.create(user);
+            const userList = yield store.index();
+            expect(userList.length).toBeGreaterThan(0);
+        });
+    });
     it("delete should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
         expect(store.delete).toBeDefined();
     }));
-    it("update should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
-        expect(store.update).toBeDefined();
+    it("delete should return true ", () => __awaiter(void 0, void 0, void 0, function* () {
+        const result = yield store.delete("42");
+        expect(result).toBe(true);
+    }));
+    it("update should return true ", () => __awaiter(void 0, void 0, void 0, function* () {
+        const user = {
+            id: "32",
+            username: "mar",
+            password_digest: "123456",
+            email: "marina.sber@gmail.com"
+        };
+        const result = yield store.update(user);
+        expect(result).toBe(true);
     }));
     it("authenticate should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
         expect(store.authenticate).toBeDefined();

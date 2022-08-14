@@ -2,7 +2,7 @@ import client from "../database";
 export type Product = {
   id?: number;
   sku: string;
-  description: Text;
+  description: string;
   price: number;
 };
 export class productStore {
@@ -36,7 +36,6 @@ export class productStore {
     description: string;
     price: number;
   }): Promise<boolean> {
-    console.log('id',params.id,params.sku, params.description,params.price)
 
     try {
       const conn = await client.connect();

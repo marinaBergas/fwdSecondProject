@@ -85,9 +85,9 @@ const verifyAuthToken = (req, res, next) => {
 };
 const products_route = (app) => {
     app.get("/product", index);
-    app.post("/product", create);
-    app.delete("/product/:id", deleteProduct);
+    app.post("/product", verifyAuthToken, create);
+    app.delete("/product/:id", verifyAuthToken, deleteProduct);
     app.get("/product/:id", show);
-    app.put("/product/:id", updateProduct);
+    app.put("/product/:id", verifyAuthToken, updateProduct);
 };
 exports.default = products_route;
