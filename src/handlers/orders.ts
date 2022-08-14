@@ -11,20 +11,44 @@ const create = async (req: Request, res: Response) => {
     user_id: req.body.user_id,
     details: req.body.details
   };
-  const orderRes = await store.create(order);
-  res.json(orderRes);
+  try {
+    const orderRes = await store.create(order);
+    res.json(orderRes);
+  } catch (error) {
+    res.json({ error: "can not add order" });
+    res.status(401);
+  }
+
 };
 const show = async (_req: Request, res: Response) => {
-  const orderRes = await store.show(_req.params.id);
-  res.json(orderRes);
+  try {
+    const orderRes = await store.show(_req.params.id);
+    res.json(orderRes);
+  } catch (error) {
+    res.json({ error: "can not show order" });
+    res.status(401);
+  }
+
 };
 const index = async (_req: Request, res: Response) => {
-  const orderRes = await store.index();
-  res.json(orderRes);
+  try {
+    const orderRes = await store.index();
+    res.json(orderRes);
+  } catch (error) {
+    res.json({ error: "can not show orders" });
+    res.status(401);
+  }
+
 };
 const deleteOrder = async (_req: Request, res: Response) => {
-  const orderRes = await store.delete(_req.params.id);
-  res.json(orderRes);
+  try {
+    const orderRes = await store.delete(_req.params.id);
+    res.json(orderRes);
+  } catch (error) {
+    res.json({ error: "can not delete order" });
+    res.status(401);
+  }
+
 };
 const updateOrder=async (_req: Request, res: Response)=>{
     const order={
@@ -34,9 +58,14 @@ const updateOrder=async (_req: Request, res: Response)=>{
       user_id: _req.body.user_id,
       details: _req.body.details
     }
-     
-    const userUpdate= await store.update(order);
-    res.json('order updated successfully');
+     try {
+      const userUpdate= await store.update(order);
+      res.json('order updated successfully');
+     } catch (error) {
+      res.json({ error: "can not update order" });
+      res.status(401);
+     }
+
   
   }
   const orderProduct=async (_req: Request, res: Response)=>{
@@ -45,7 +74,14 @@ const updateOrder=async (_req: Request, res: Response)=>{
     order_id: _req.body.order_id,
     product_id: _req.body.product_id
     }
-    const userUpdate= await store.addProduct(order_product)
+    try {
+      const userUpdate= await store.addProduct(order_product)
+      res.json('orderProduct add successfully');
+
+    } catch (error) {
+      res.json({ error: "can not add orderProduct" });
+      res.status(401);
+    }
   }
 const verifyAuthToken = (req: Request, res: Response, next: any) => {
     try {

@@ -7,20 +7,36 @@ const create = async (req: Request, res: Response) => {
     description: req.body.description,
     price: req.body.price,
   };
-  const productRes = await store.create(product);
-  res.json(productRes);
+  try {
+    const productRes = await store.create(product);
+    res.json(productRes);
+  } catch (error) {
+    res.json({ error: "can not add product" });
+  }
 };
 const show = async (req: Request, res: Response) => {
-  const productRes = await store.show(req.params.id);
-  res.json(productRes);
+  try {
+    const productRes = await store.show(req.params.id);
+    res.json(productRes);
+  } catch (error) {
+    res.json({ error: "can not show product" });
+  }
 };
 const index = async (req: Request, res: Response) => {
-  const productRes = await store.index();
-  res.json(productRes);
+  try {
+    const productRes = await store.index();
+    res.json(productRes);
+  } catch (error) {
+    res.json({ error: "can not show products" });
+  }
 };
 const deleteProduct = async (req: Request, res: Response) => {
-  const productRes = await store.delete(req.params.id);
-  res.json(productRes);
+  try {
+    const productRes = await store.delete(req.params.id);
+    res.json(productRes);
+  } catch (error) {
+    res.json({ error: "can not delete product" });
+  }
 };
 const updateProduct = async (req: Request, res: Response) => {
   const product = {
@@ -29,9 +45,12 @@ const updateProduct = async (req: Request, res: Response) => {
     description: req.body.description,
     price: req.body.price,
   };
-
-  const userUpdate = await store.update(product);
-  res.json("product updated successfully");
+  try {
+    const userUpdate = await store.update(product);
+    res.json("product updated successfully");
+  } catch (error) {
+    res.json({ error: "can not update product" });
+  }
 };
 const products_route = (app: express.Application) => {
   app.get("/product", index);

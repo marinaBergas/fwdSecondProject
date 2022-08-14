@@ -24,20 +24,44 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         user_id: req.body.user_id,
         details: req.body.details
     };
-    const orderRes = yield store.create(order);
-    res.json(orderRes);
+    try {
+        const orderRes = yield store.create(order);
+        res.json(orderRes);
+    }
+    catch (error) {
+        res.json({ error: "can not add order" });
+        res.status(401);
+    }
 });
 const show = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const orderRes = yield store.show(_req.params.id);
-    res.json(orderRes);
+    try {
+        const orderRes = yield store.show(_req.params.id);
+        res.json(orderRes);
+    }
+    catch (error) {
+        res.json({ error: "can not show order" });
+        res.status(401);
+    }
 });
 const index = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const orderRes = yield store.index();
-    res.json(orderRes);
+    try {
+        const orderRes = yield store.index();
+        res.json(orderRes);
+    }
+    catch (error) {
+        res.json({ error: "can not show orders" });
+        res.status(401);
+    }
 });
 const deleteOrder = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const orderRes = yield store.delete(_req.params.id);
-    res.json(orderRes);
+    try {
+        const orderRes = yield store.delete(_req.params.id);
+        res.json(orderRes);
+    }
+    catch (error) {
+        res.json({ error: "can not delete order" });
+        res.status(401);
+    }
 });
 const updateOrder = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const order = {
@@ -47,8 +71,14 @@ const updateOrder = (_req, res) => __awaiter(void 0, void 0, void 0, function* (
         user_id: _req.body.user_id,
         details: _req.body.details
     };
-    const userUpdate = yield store.update(order);
-    res.json('order updated successfully');
+    try {
+        const userUpdate = yield store.update(order);
+        res.json('order updated successfully');
+    }
+    catch (error) {
+        res.json({ error: "can not update order" });
+        res.status(401);
+    }
 });
 const orderProduct = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const order_product = {
@@ -56,7 +86,14 @@ const orderProduct = (_req, res) => __awaiter(void 0, void 0, void 0, function* 
         order_id: _req.body.order_id,
         product_id: _req.body.product_id
     };
-    const userUpdate = yield store.addProduct(order_product);
+    try {
+        const userUpdate = yield store.addProduct(order_product);
+        res.json('orderProduct add successfully');
+    }
+    catch (error) {
+        res.json({ error: "can not add orderProduct" });
+        res.status(401);
+    }
 });
 const verifyAuthToken = (req, res, next) => {
     try {

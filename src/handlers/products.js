@@ -17,20 +17,40 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         description: req.body.description,
         price: req.body.price,
     };
-    const productRes = yield store.create(product);
-    res.json(productRes);
+    try {
+        const productRes = yield store.create(product);
+        res.json(productRes);
+    }
+    catch (error) {
+        res.json({ error: "can not add product" });
+    }
 });
 const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const productRes = yield store.show(req.params.id);
-    res.json(productRes);
+    try {
+        const productRes = yield store.show(req.params.id);
+        res.json(productRes);
+    }
+    catch (error) {
+        res.json({ error: "can not show product" });
+    }
 });
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const productRes = yield store.index();
-    res.json(productRes);
+    try {
+        const productRes = yield store.index();
+        res.json(productRes);
+    }
+    catch (error) {
+        res.json({ error: "can not show products" });
+    }
 });
 const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const productRes = yield store.delete(req.params.id);
-    res.json(productRes);
+    try {
+        const productRes = yield store.delete(req.params.id);
+        res.json(productRes);
+    }
+    catch (error) {
+        res.json({ error: "can not delete product" });
+    }
 });
 const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const product = {
@@ -39,8 +59,13 @@ const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         description: req.body.description,
         price: req.body.price,
     };
-    const userUpdate = yield store.update(product);
-    res.json("product updated successfully");
+    try {
+        const userUpdate = yield store.update(product);
+        res.json("product updated successfully");
+    }
+    catch (error) {
+        res.json({ error: "can not update product" });
+    }
 });
 const products_route = (app) => {
     app.get("/product", index);

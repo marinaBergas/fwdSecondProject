@@ -14,8 +14,8 @@
     "watch": "tsc-watch --esModuleInterop src/service.ts --outDir  ./dist --onSuccess ",
     "newTest": "ENV=dev db-migrate --env test up && jasmine && db-migrate db:drop test",
     "migrate-up": "db-migrate --env  up && db-migrate up",
-    "migrate-down":"db-migrate down"
-    },
+    "migrate-down": "db-migrate down"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -26,7 +26,7 @@
     "@types/jasmine": "^4.0.3",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/lodash": "^4.14.182",
-    "@types/node": "^18.0.3",
+    "@types/node": "^18.7.3",
     "@types/pg": "^8.6.5",
     "@types/supertest": "^2.0.12",
     "babel-eslint": "^10.1.0",

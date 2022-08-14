@@ -18,14 +18,20 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const store = new user_1.userStory();
 const create = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userS = {
-        username: _req.body.username,
-        password_digest: _req.body.password_digest,
-    };
-    const user = yield store.create(userS);
-    let token = jsonwebtoken_1.default.sign({ user }, process.env.TOKEN_SECRET);
-    res.json({ "user-token": token });
-    res.end();
+    try {
+        const userS = {
+            username: _req.body.username,
+            password_digest: _req.body.password_digest,
+        };
+        const user = yield store.create(userS);
+        let token = jsonwebtoken_1.default.sign({ user }, process.env.TOKEN_SECRET);
+        res.json({ "user-token": token });
+        res.end();
+    }
+    catch (error) {
+        res.json({ error: "can not add user" });
+        res.status(401);
+    }
 });
 const updateUser = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = {
@@ -33,12 +39,24 @@ const updateUser = (_req, res) => __awaiter(void 0, void 0, void 0, function* ()
         username: _req.body.username,
         password: _req.body.password_digest
     };
-    const userUpdate = yield store.update(user);
-    res.json('user updated successfully');
+    try {
+        const userUpdate = yield store.update(user);
+        res.json('user updated successfully');
+    }
+    catch (error) {
+        res.json({ error: "can not update user" });
+        res.status(401);
+    }
 });
 const authenticate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield store.authenticate(req.body.username, req.body.password);
-    res.json(user);
+    try {
+        const user = yield store.authenticate(req.body.username, req.body.password);
+        res.json(user);
+    }
+    catch (error) {
+        res.json(error);
+        res.status(401);
+    }
 });
 const verifyAuthToken = (req, res, next) => {
     try {
@@ -53,16 +71,34 @@ const verifyAuthToken = (req, res, next) => {
     }
 };
 const show = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield store.show(req.params.id);
-    res.json(user);
+    try {
+        const user = yield store.show(req.params.id);
+        res.json(user);
+    }
+    catch (error) {
+        res.json({ error: 'can not show the user' });
+        res.status(401);
+    }
 });
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield store.index();
-    res.json(user);
+    try {
+        const user = yield store.index();
+        res.json(user);
+    }
+    catch (error) {
+        res.json({ error: 'can not show users' });
+        res.status(401);
+    }
 });
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const deletedUser = yield store.delete(req.params.id);
-    res.json('user deleted successfully');
+    try {
+        const deletedUser = yield store.delete(req.params.id);
+        res.json('user deleted successfully');
+    }
+    catch (error) {
+        res.json({ error: 'can not delete user' });
+        res.status(401);
+    }
 });
 const users_route = (app) => {
     app.get('/users', index);

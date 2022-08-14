@@ -17,6 +17,6 @@ describe("orders model", () => {
     });
     it("index should be list ", () => __awaiter(void 0, void 0, void 0, function* () {
         const result = yield store.index();
-        expect(result).not.toEqual([]);
+        expect(result).toEqual([]);
     }));
 });
