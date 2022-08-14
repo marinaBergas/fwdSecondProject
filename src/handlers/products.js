@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const products_1 = require("../models/products");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const store = new products_1.productStore();
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const product = {
@@ -67,6 +71,18 @@ const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.json({ error: "can not update product" });
     }
 });
+const verifyAuthToken = (req, res, next) => {
+    try {
+        const authorizationHeader = req.headers.authorization;
+        const token = authorizationHeader.split(" ")[1];
+        const decoded = jsonwebtoken_1.default.verify(token, process.env.TOKEN_SECRET);
+        next();
+    }
+    catch (error) {
+        res.json({ error: "user not authenticate" });
+        res.status(401);
+    }
+};
 const products_route = (app) => {
     app.get("/product", index);
     app.post("/product", create);

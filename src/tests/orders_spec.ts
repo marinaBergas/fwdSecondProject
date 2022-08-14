@@ -8,7 +8,17 @@ describe("orders model", () => {
   });
   it("index should be list ", async () => {
     const result = await store.index();
-    expect(result).toEqual([]);
+    expect(result).not.toEqual([]);
+  });
+  it(" create should not be undefined ", async () => {
+    expect(store.create).toBeDefined();
+  });
+  it("delete should be not be undefined ", async () => {
+
+    expect(store.delete).toBeDefined();
+  });
+  it("update should be not be undefined ", async () => {
+    expect(store.update).toBeDefined();
   });
 
 });

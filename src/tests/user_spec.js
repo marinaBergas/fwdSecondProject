@@ -19,4 +19,16 @@ describe("user model", () => {
         const result = yield store.index();
         expect(result).not.toEqual([]);
     }));
+    it(" create should not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
+        expect(store.create).toBeDefined();
+    }));
+    it("delete should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
+        expect(store.delete).toBeDefined();
+    }));
+    it("update should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
+        expect(store.update).toBeDefined();
+    }));
+    it("authenticate should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
+        expect(store.authenticate).toBeDefined();
+    }));
 });

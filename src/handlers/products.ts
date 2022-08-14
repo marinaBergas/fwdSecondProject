@@ -1,5 +1,7 @@
 import { productStore } from "../models/products";
 import express, { Request, Response } from "express";
+import jwt, { JwtPayload } from "jsonwebtoken";
+
 const store = new productStore();
 const create = async (req: Request, res: Response) => {
   const product = {
@@ -50,6 +52,19 @@ const updateProduct = async (req: Request, res: Response) => {
     res.json("product updated successfully");
   } catch (error) {
     res.json({ error: "can not update product" });
+  }
+};
+const verifyAuthToken = (req: Request, res: Response, next: any) => {
+  try {
+    const authorizationHeader = req.headers.authorization as string;
+    const token = authorizationHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET as string);
+
+    next();
+  } catch (error) {
+    res.json({ error: "user not authenticate" });
+
+    res.status(401);
   }
 };
 const products_route = (app: express.Application) => {

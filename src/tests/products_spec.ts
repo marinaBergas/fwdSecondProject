@@ -9,5 +9,15 @@ describe("products model", () => {
     const result = await store.index();
     expect(result).not.toEqual([]);
   });
+  it(" create should not be undefined ", async () => {
+    expect(store.create).toBeDefined();
+  });
+  it("delete should be not be undefined ", async () => {
+
+    expect(store.delete).toBeDefined();
+  });
+  it("update should be not be undefined ", async () => {
+    expect(store.update).toBeDefined();
+  });
 
 });

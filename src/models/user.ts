@@ -1,10 +1,13 @@
 import client from "../database";
-const bcrypt = require("bcrypt");
-const pepper = require("s-salt-pepper");
+import bcrypt from "bcrypt";
+// const pepper = require("s-salt-pepper");
+const pepper = process.env.BCRYPT_PASSWORD as string;
+const saltRounds = process.env.SALT_ROUNDS as string;
 export type User = {
-  id?: number;
+  id?: string;
   username: string;
   password_digest: string;
+  email: string;
 };
 export class userStory {
   async show(id: string): Promise<User> {
@@ -21,52 +24,73 @@ export class userStory {
   async update(params: {
     id: string;
     username: string;
-    password: string;
+    password_digest: string;
+    email: string;
   }): Promise<boolean> {
     try {
       const conn = await client.connect();
       const sql =
-        "UPDATE users SET username = ($2), password_digest=($3) WHERE id =($1)";
-      const saltRounds = bcrypt.genSaltSync(10);
-
+        "UPDATE users SET username = ($2), password_digest=($3), email=($4) WHERE id =($1)";
       const hash = bcrypt.hashSync(
-        params.password + pepper,
+        params.password_digest + pepper,
         parseInt(saltRounds)
       );
+      console.log('result');
 
-      const result = await conn.query(sql, [params.id, params.username, hash]);
+      const result = await conn.query(sql, [params.id, params.username, hash,params.email]);
       conn.release();
+      console.log('result',result);
+
       return true;
     } catch (error) {
       throw new Error(`Could not update user`);
     }
   }
-  async authenticate(username: string, password: string): Promise<User | null> {
-    console.log("username", password);
-    const conn = await client.connect();
-    const sql = "SELECT password_digest FROM users WHERE username=($1)";
-    const result = await conn.query(sql, [username]);
-    if (result.rows.length) {
-      const user = result.rows[0];
+  async authenticate(
+   u:User
+  ): Promise<User | string> {
+    console.log("sql", u.email);
 
-      if (bcrypt.compare(password + pepper, user.password_digest)) {
-        return user;
+    try {
+      const conn = await client.connect();
+      const sql = 'SELECT * FROM users WHERE id=($1)';
+      const result = await conn.query(sql,[u.id]);
+      conn.release();
+      if (result.rows.length) {
+        const user = result.rows[0];
+        console.log("password_digest", u.password_digest + pepper);
+
+        if (
+          bcrypt.compareSync(u.password_digest + pepper, user.password_digest)
+        ) {
+          return user;
+        } else {
+          return "password isn not correct";
+        }
       }
+      return "there is some thing wrong";
+    } catch (error) {
+      throw new Error(`Could not authenticate`);
     }
-    return null;
   }
   async create(u: User): Promise<User | null> {
+    console.log('user',u);
     try {
       const conn = await client.connect();
 
       const sql =
-        "INSERT INTO users (username, password_digest) VALUES($1, $2) RETURNING *";
-      const saltRounds = bcrypt.genSaltSync(10);
-      const hash = bcrypt.hashSync(u.password_digest + pepper, parseInt(saltRounds));
-      const result = await conn.query(sql, [u.username, hash]);
+        "INSERT INTO users (username, password_digest,email) VALUES($1, $2,$3) RETURNING *";
+      const hash = bcrypt.hashSync(
+        u.password_digest + pepper,
+        parseInt(saltRounds)
+      );
+
+      const result = await conn.query(sql, [u.username,hash,u.email]);
 
       conn.release();
       const user = result.rows[0];
+      console.log(user);
+
       return user;
     } catch (error) {
       throw new Error(`Could not add new user ${u.username}`);
@@ -90,8 +114,6 @@ export class userStory {
       const result = await connect.query(sql, [id]);
       connect.release();
       return true;
-      console.log("row", result.rows);
-      // return result.rows[0];
     } catch (error) {
       throw new Error(`Could not delete this user `);
     }

@@ -17,6 +17,15 @@ describe("orders model", () => {
     });
     it("index should be list ", () => __awaiter(void 0, void 0, void 0, function* () {
         const result = yield store.index();
-        expect(result).toEqual([]);
+        expect(result).not.toEqual([]);
+    }));
+    it(" create should not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
+        expect(store.create).toBeDefined();
+    }));
+    it("delete should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
+        expect(store.delete).toBeDefined();
+    }));
+    it("update should be not be undefined ", () => __awaiter(void 0, void 0, void 0, function* () {
+        expect(store.update).toBeDefined();
     }));
 });
