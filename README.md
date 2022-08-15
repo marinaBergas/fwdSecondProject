@@ -2,12 +2,16 @@
 for migration up-> npm run  migrate-up
 for migration down-> npm run  migrate-down 
 for build-> npm run build;
-test npm run newTest ; 
+test npm run test ; 
 for nodemon-> npm run start;
 //port numper 3001
 "host": "127.0.0.1",
 //address app work on 
 http://0.0.0.0:3001/
+
+--->psql port  is 5432.
+
+
 
 -hint variables is in gitignore 
 //Environment variables.
