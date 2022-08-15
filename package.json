@@ -11,10 +11,10 @@
     "jasmineBuild": "npm run build && npm run  jasmine",
     "start": "nodemon src/service.ts",
     "watch": "tsc-watch --esModuleInterop src/service.ts --outDir  ./dist --onSuccess ",
-    "newTest": "ENV=dev db-migrate --env test up && npm run build && npm run  jasmine && db-migrate db:drop test",
-    "test": "export ENV=dev && db-migrate --env test up && jasmine && db-migrate db:drop test",
-    "migrate-up": "db-migrate --env  up && db-migrate up",
-    "migrate-down": "db-migrate down"
+    "newTest": "ENV=test db-migrate --env test up && npm run build && npm run  jasmine && db-migrate db:drop test",
+    "test": "export ENV=test && db-migrate --env test up && jasmine && db-migrate db:drop test",
+    "migrate-up": "db-migrate --env test up  && db-migrate up",
+    "migrate-down": "db-migrate --env test down  &&db-migrate down"
   },
   "author": "",
   "license": "ISC",

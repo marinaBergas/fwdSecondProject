@@ -9,14 +9,16 @@ dotenv_1.default.config();
 const { POSTGRES_HOST, POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_TEST_DB, ENV, BCRYPT_PASSWORD, SALT_ROUNDS, TOKEN_SECRET, } = process.env;
 let client;
 if (ENV === "test") {
+    console.log('testss', POSTGRES_TEST_DB);
     client = new pg_1.Pool({
         host: POSTGRES_HOST,
-        user: POSTGRES_USER,
         database: POSTGRES_TEST_DB,
+        user: POSTGRES_USER,
         password: POSTGRES_PASSWORD,
     });
 }
 if (ENV === "dev") {
+    console.log('dev');
     client = new pg_1.Pool({
         host: POSTGRES_HOST,
         database: POSTGRES_DB,
