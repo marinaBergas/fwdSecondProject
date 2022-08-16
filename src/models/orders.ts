@@ -2,7 +2,7 @@ import client from "../database";
 const bcrypt = require("bcrypt");
 const pepper = require("s-salt-pepper");
 export type Order = {
-  id?: number;
+  id?: number|string;
   status: string;
   ordernum: number;
   user_id: number;
@@ -66,7 +66,7 @@ export class orderStore {
     }
   }
   async update(params: {
-    id: string;
+    id: string|number;
     status: string;
   ordernum: number;
   user_id: number;

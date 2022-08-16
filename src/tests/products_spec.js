@@ -12,6 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const products_1 = require("../models/products");
 const store = new products_1.productStore();
 describe("products model", () => {
+    beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        console.log('first');
+        const product = {
+            id: 2,
+            sku: "this is aproduct #12",
+            description: "123456",
+            price: 25
+        };
+        const result = yield store.create(product);
+        return result;
+    }));
     it("should have index", () => {
         expect(store.index).toBeDefined();
     });

@@ -12,6 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const orders_1 = require("../models/orders");
 const store = new orders_1.orderStore();
 describe("orders model", () => {
+    beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        const order = {
+            id: "1",
+            status: "accepts",
+            ordernum: 123,
+            user_id: 2,
+            details: "det"
+        };
+        const result = yield store.create(order);
+        return result;
+    }));
     it("should have index", () => {
         expect(store.index).toBeDefined();
     });
@@ -32,7 +43,7 @@ describe("orders model", () => {
         const result = yield store.delete("42");
         expect(result).toBe(true);
     }));
-    it("update should return true ", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("update should return true  ", () => __awaiter(void 0, void 0, void 0, function* () {
         const order = {
             id: "1",
             status: "accepts",

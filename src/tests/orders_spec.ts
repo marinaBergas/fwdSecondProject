@@ -1,7 +1,7 @@
 import { orderStore } from "../models/orders";
 import { productStore } from "../models/products";
 export type Order = {
-  id: string;
+  id: string|number;
   status: string;
 ordernum: number;
 user_id: number;
@@ -9,6 +9,18 @@ details: string;
 };
 const store = new orderStore();
 describe("orders model", () => {
+  beforeAll(async()=>{
+      const order:Order = {
+        id: "1" ,
+        status: "accepts",
+        ordernum: 123,
+        user_id: 2,
+        details: "det"
+  
+      }
+    const result=await store.create(order);
+    return result;
+  });
   it("should have index", () => {
     expect(store.index).toBeDefined();
   });
@@ -30,7 +42,7 @@ describe("orders model", () => {
     const result=await store.delete("42");
     expect(result).toBe(true);
   });
-  it("update should return true ", async () => {
+  it("update should return true  ", async () => {
     const order:Order = {
       id: "1",
       status: "accepts",

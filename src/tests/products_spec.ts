@@ -7,6 +7,17 @@ export type Product = {
 };
 const store = new productStore();
 describe("products model", () => {
+  beforeAll(async()=>{
+    console.log('first');
+    const product:Product = {
+      id:2,
+      sku:"this is aproduct #12",
+      description:"123456",
+      price:25
+    }
+    const result =await store.create(product);
+    return result;
+  })
   it("should have index", () => {
     expect(store.index).toBeDefined();
   });
@@ -32,7 +43,8 @@ describe("products model", () => {
     await store.create(product)
     const userList = await store.index()
 
-  expect(userList.length).toBeGreaterThan(0);});
+  expect(userList.length).toBeGreaterThan(0);
+});
   it("update should be not be undefined ", async () => {
     expect(store.update).toBeDefined();
   });

@@ -7,6 +7,15 @@ export type User = {
   email: string;
 };
 describe("user model", () => {
+  beforeAll(async()=>{
+    const user: User = {
+      username:"mar",
+      password_digest:"123456",
+      email:"marina.sber@gmail.com"
+    }
+   const result= await store.create(user) ;
+    return result;
+  });
   it("should have index", () => {
     expect(store.index).toBeDefined();
   });
@@ -19,9 +28,9 @@ describe("user model", () => {
   });
   it('fetch all users', async function () {
     const user: User = {
-      "username":"mar",
-      "password_digest":"123456",
-      "email":"marina.sber@gmail.com"
+      username:"mar",
+      password_digest:"123456",
+      email:"marina.sber@gmail.com"
     }
     await store.create(user)
     const userList = await store.index()

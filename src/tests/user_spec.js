@@ -12,6 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = require("../models/user");
 const store = new user_1.userStory();
 describe("user model", () => {
+    beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        const user = {
+            username: "mar",
+            password_digest: "123456",
+            email: "marina.sber@gmail.com"
+        };
+        const result = yield store.create(user);
+        return result;
+    }));
     it("should have index", () => {
         expect(store.index).toBeDefined();
     });
@@ -25,9 +34,9 @@ describe("user model", () => {
     it('fetch all users', function () {
         return __awaiter(this, void 0, void 0, function* () {
             const user = {
-                "username": "mar",
-                "password_digest": "123456",
-                "email": "marina.sber@gmail.com"
+                username: "mar",
+                password_digest: "123456",
+                email: "marina.sber@gmail.com"
             };
             yield store.create(user);
             const userList = yield store.index();
