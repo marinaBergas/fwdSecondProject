@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 const pepper = process.env.BCRYPT_PASSWORD as string;
 const saltRounds = process.env.SALT_ROUNDS as string;
 export type User = {
-  id?: string;
+  id?: string|number;
   username: string;
   password_digest: string;
   email: string;
@@ -66,7 +66,7 @@ export class userStory {
       throw new Error(`Could not authenticate`);
     }
   }
-  async create(u: User): Promise<User | null> {
+  async create(u: User): Promise<User > {
     try {
       const conn = await client.connect();
 

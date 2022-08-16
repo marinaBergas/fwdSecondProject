@@ -10,18 +10,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const orders_1 = require("../models/orders");
+const user_1 = require("../models/user");
 const store = new orders_1.orderStore();
+const userStore = new user_1.userStory();
+let userInfo;
 describe("orders model", () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
+        const user = {
+            username: "mar",
+            password_digest: "123456",
+            email: "marina.sber@gmail.com",
+        };
+        userInfo = yield userStore.create(user);
+        console.log("userRes", userInfo);
         const order = {
             id: "1",
             status: "accepts",
-            ordernum: 123,
-            user_id: 2,
-            details: "det"
+            ordernum: "12",
+            user_id: userInfo.id,
+            details: "det",
         };
         const result = yield store.create(order);
-        return result;
+        // return result;
     }));
     it("should have index", () => {
         expect(store.index).toBeDefined();
@@ -47,9 +57,9 @@ describe("orders model", () => {
         const order = {
             id: "1",
             status: "accepts",
-            ordernum: 123,
-            user_id: 32,
-            details: "det"
+            ordernum: "12",
+            user_id: userInfo.id,
+            details: "det",
         };
         const result = yield store.update(order);
         expect(result).toBe(true);

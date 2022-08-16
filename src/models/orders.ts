@@ -2,11 +2,11 @@ import client from "../database";
 const bcrypt = require("bcrypt");
 const pepper = require("s-salt-pepper");
 export type Order = {
-  id?: number|string;
+  id?: string;
   status: string;
-  ordernum: number;
-  user_id: number;
-  details: string;
+ordernum: string;
+user_id: number;
+details: string;
 };
 export type ProductOrder={
   quantity: number,
@@ -65,10 +65,11 @@ export class orderStore {
       throw new Error(`Could not connect orders `);
     }
   }
+
   async update(params: {
-    id: string|number;
+    id: string;
     status: string;
-  ordernum: number;
+  ordernum: string;
   user_id: number;
   details: string;
   }): Promise<boolean> {
